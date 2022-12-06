@@ -3,6 +3,43 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+//Get the class with the heart
+const heartLike =document.getElementsByClassName("like-glyph");
+
+//Add an event Listener
+for(const glyph of heartLike){
+  glyph.addEventListener('click',likeFunc);
+
+}
+
+//createthe likeFunc that takes an event as a parameter
+
+function likeFunc(e){
+  //since heart is the target
+  const heart=e.target;
+
+  mimicServerCall('url')
+  .then(function(){
+    //conditions
+    if(heart.innerText === EMPTY_HEART){
+      heart.innerText=FULL_HEART;
+      heart.ClassName ='activated-heart'
+    }
+    else{
+      heart.innerText=EMPTY_HEART
+      heart.classname='';
+    }
+  })
+  //for the errors
+  .catch(function(error){
+    const modal=document.getElementById('modal')
+    modal.className =''
+    modal.innerText =error;
+    //setting timeout
+    setTimeout(() =>modal.className ='hidden',300)
+
+  })
+}
 
 
 
